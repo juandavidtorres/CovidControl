@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+<div id="printableArea">
+    <div class="col-lg-10" style="float:none;margin:auto;">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed table-striped table-hover sortable">
+                    @if (ViewBag.Lista == null)
+                    {
+                        <tr>
+                            <td colspan="10">No se encontrarón registros en la base de datos.</td>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        <thead>
+                            <tr class="danger">
+                                <th data-defaultsign="AZ">Nombre</th>
+                                <th data-defaultsign="AZ">NumeroIdentificacion</th>
+                                <th data-defaultsign="AZ">Servicio</th>
+                                <th data-defaultsign="month">Fecha Servicio</th>
+                                <th data-defaultsign="disabled">Temperatura</th>
+                                <th data-defaultsort="disabled">EsNuevo</th>
+                            </tr>
+                        </thead>
+                        foreach (var item in ViewBag.Lista)
+                        {
+                            <tr>
+                                <td>@item.Nombre</td>
+                                <td>@item.NumeroIdentificacion</td>
+                                <td>@item.Servicio</td>
+                                <td>@item.FechaServicio</td>
+                                <td>@item.Temperatura</td>
+                                <td>@item.EsNuevo</td>
+                            </tr>
+                        }
+                    }
+                </table>
+                <br />
+                <br />
+                <br />
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Lista != null)
+{
+    <div class="col-lg-10" style="float:none;margin:auto;">
+        <input type="button" value="Imprimir" onclick="printDiv('printableArea')" class="btn btn-success" />
+    </div>
+
+
+
+}
+
+

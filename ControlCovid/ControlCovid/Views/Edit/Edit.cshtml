@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ControlCovid.Models.UsuarioTemperatura
+
+
+<div class="jumbotron">
+    <div style="background-image: url(../../Content/Images/LogoCasaRey.jpeg);  background-size: 100% 100%;
+    height:300px;
+    width:1020px;">
+    </div>
+</div>
+
+<div class="col-lg-10" style="float:none;margin:auto;">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Asignar Temperatura</div>
+                <div class="panel-body">
+                    @* @Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+                    @using (Html.BeginForm("GuardarTemperatura", "Edit", FormMethod.Post))
+                    {
+
+                        @Html.AntiForgeryToken()
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.NumeroIdentificacion)</td>
+                                    <td>@Html.TextBoxFor(model => model.NumeroIdentificacion, new { @class = "form-control" })</td>
+                                    <td>@Html.ValidationMessageFor(model => model.NumeroIdentificacion, "", new { @class = "text-danger" })</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.Label("Tipo Identificación")</td>
+                                    <td>
+                                        @Html.DropDownListFor(model => model.TipoIdentificacion, new SelectList(Enum.GetValues(typeof(ControlCovid.Models.TiposIdentficiacion))), new { @class = "form-control" })
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(model => model.Temperatura)</td>
+                                    <td>@Html.TextBoxFor(model => model.Temperatura, new { @class = "form-control" })</td>
+                                    <td>@Html.ValidationMessageFor(model => model.Temperatura, "", new { @class = "text-danger" })</td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="submit" value="Guardar" class="btn btn-success" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+                <div class="panel-footer"></div>
+            </div>
+            @if (ViewBag.TheResult == true)
+            {
+                <div class="alert alert-success">
+                    <strong> @ViewBag.Mensaje</strong>
+                </div>
+            }@if ((ViewBag.TheResult == false) && (ViewBag.Mensaje != string.Empty))
+            {
+
+                <div class="alert alert-danger">
+                    <strong>@ViewBag.Mensaje</strong>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
