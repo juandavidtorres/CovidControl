@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,15 +13,27 @@ namespace ControlCovid.Models
         private List<SelectListItem> listaServicios = new List<SelectListItem>();
         public Asistente()
         {
-            listaServicios = new List<SelectListItem>()
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["AplicaServiciosDomingo"]))
             {
-                new SelectListItem(){Text="Servicio Domingo 7:00 am",Value="21",Selected=true},
-                new SelectListItem(){Text="Servicio Domingo 9:00 am",Value="22",Selected=false},
-                new SelectListItem(){Text="Servicio Domingo 11:00 am",Value="23",Selected=false},
-                //new SelectListItem(){Text="Servicio Domingo 4:00 pm",Value="24",Selected=false},
-                //new SelectListItem(){Text="Servicio Domingo 6:00 pm",Value="25",Selected=false},
-                new SelectListItem(){Text="Servicio Jueves 6:00 pm",Value="26",Selected=false},
-            };
+                listaServicios = new List<SelectListItem>()
+                {
+                    new SelectListItem(){Text="Servicio Domingo 7:00 am",Value="21",Selected=true},
+                    new SelectListItem(){Text="Servicio Domingo 9:00 am",Value="22",Selected=false},
+                    new SelectListItem(){Text="Servicio Domingo 11:00 am",Value="23",Selected=false},
+                    new SelectListItem(){Text="Servicio Domingo 4:00 pm",Value="24",Selected=false},
+                    new SelectListItem(){Text="Servicio Domingo 6:00 pm",Value="25",Selected=false},
+                    new SelectListItem(){Text="Servicio Jueves 6:00 pm",Value="26",Selected=false},
+                    new SelectListItem(){Text="Discipulado General",Value="33",Selected=false}
+                };
+            }
+            else
+            {
+                listaServicios = new List<SelectListItem>()
+                {
+                    new SelectListItem(){Text="Servicio Jueves 6:00 pm",Value="26",Selected=false},
+                    new SelectListItem(){Text="Discipulado General",Value="33",Selected=false}
+                };
+            }
         }
 
         [Display(Name = "Número de identificación (*)")]

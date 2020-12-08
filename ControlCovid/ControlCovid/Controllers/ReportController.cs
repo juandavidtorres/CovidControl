@@ -23,7 +23,7 @@ namespace ControlCovid.Controllers
             if (ModelState.IsValid)
             {
                 ControlCovid.Models.BLL.AsistenteBLL asistenteBLL = new Models.BLL.AsistenteBLL();
-                List<dynamic> lista = asistenteBLL.RecuperarListaAsistentes(prmParametros.FechaServicio, prmParametros.IdServicio);
+                List<dynamic> lista = asistenteBLL.RecuperarListaAsistentes(prmParametros.FechaServicio, prmParametros.IdServicio,prmParametros.SoloPersonasNuevas);
                 TempData["Resultados"] = lista;
                 return RedirectToAction("Index", "Print");
             }

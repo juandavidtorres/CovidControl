@@ -80,7 +80,7 @@ namespace ControlCovid.Models.DAL
         }
 
 
-        public SqlDataReader RecuperarListaAsistentes(DateTime prmFecha, string prmStrIdServicio)
+        public SqlDataReader RecuperarListaAsistentes(DateTime prmFecha, string prmStrIdServicio, bool prmSoloPersonasNuevas)
         {
 
             SqlCommand cmd = new SqlCommand();
@@ -95,6 +95,7 @@ namespace ControlCovid.Models.DAL
                 cmd.CommandTimeout = 0;
                 cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Fecha", prmFecha));
                 cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IdServicio", prmStrIdServicio));
+                cmd.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EsNuevo", prmSoloPersonasNuevas));
                 SqlDataReader datos =cmd.ExecuteReader();
                 return datos;
             }

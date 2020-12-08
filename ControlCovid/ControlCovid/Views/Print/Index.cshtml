@@ -31,23 +31,25 @@
                         <thead>
                             <tr class="danger">
                                 <th data-defaultsign="AZ">Nombre</th>
-                                <th data-defaultsign="AZ">NumeroIdentificacion</th>
+                                <th data-defaultsign="AZ">Identificacion</th>
                                 <th data-defaultsign="AZ">Servicio</th>
-                                <th data-defaultsign="month">Fecha Servicio</th>
+                                <th data-defaultsign="month">Fecha</th>
                                 <th data-defaultsign="disabled">Temperatura</th>
-                                <th data-defaultsort="disabled">EsNuevo</th>
+                                <th data-defaultsort="disabled">Telefono</th>
+                                <th data-defaultsort="disabled">Nuevo</th>                                
                             </tr>
                         </thead>
                         foreach (var item in ViewBag.Lista)
                         {
-                            <tr>
-                                <td>@item.Nombre</td>
-                                <td>@item.NumeroIdentificacion</td>
-                                <td>@item.Servicio</td>
-                                <td>@item.FechaServicio</td>
-                                <td>@item.Temperatura</td>
-                                <td>@item.EsNuevo</td>
-                            </tr>
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.NumeroIdentificacion</td>
+                            <td>@item.Servicio</td>
+                            <td>@item.FechaServicio</td>
+                            <td>@item.Temperatura</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.EsNuevo</td>
+                        </tr>
                         }
                     }
                 </table>

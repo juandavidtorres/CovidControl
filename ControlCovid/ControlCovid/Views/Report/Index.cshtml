@@ -37,6 +37,11 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td>@Html.LabelFor(model => model.SoloPersonasNuevas)</td>
+                                    <td> @Html.CheckBoxFor(model => model.SoloPersonasNuevas, new { @class = "form-control" })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td></td>
                                     <td>
                                         <input type="submit" value="Generar" class="btn btn-success" />

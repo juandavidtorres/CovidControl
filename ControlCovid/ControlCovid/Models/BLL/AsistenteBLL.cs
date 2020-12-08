@@ -17,11 +17,26 @@ namespace ControlCovid.Models.BLL
             {
                 ControlCovid.Models.DAL.DataAccessLayer dataAccessLayer = new DAL.DataAccessLayer();
                 int idServicioJueves = 26;
-                prmasistente.SegundoApellido = String.IsNullOrEmpty(prmasistente.SegundoApellido) ? String.Empty : prmasistente.SegundoApellido;
-                prmasistente.SegundoNombre = String.IsNullOrEmpty(prmasistente.SegundoNombre) ? String.Empty : prmasistente.SegundoNombre;
-                prmasistente.FechaServicio = Convert.ToInt32(prmasistente.IdServicio) == idServicioJueves ? ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Thursday) : ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Sunday);
-                data.Mensaje= dataAccessLayer.AlmacenarAsistente(prmasistente);
-                data.Existosa = true;
+                int idDiscipulado = 33;
+
+                if (prmasistente.IdServicio==idDiscipulado.ToString())
+                {
+                    prmasistente.SegundoApellido = String.IsNullOrEmpty(prmasistente.SegundoApellido) ? String.Empty : prmasistente.SegundoApellido;
+                    prmasistente.SegundoNombre = String.IsNullOrEmpty(prmasistente.SegundoNombre) ? String.Empty : prmasistente.SegundoNombre;
+                    prmasistente.FechaServicio = Convert.ToInt32(prmasistente.IdServicio) == idDiscipulado ? ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Tuesday) : ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Sunday);
+                    data.Mensaje = dataAccessLayer.AlmacenarAsistente(prmasistente);
+                    data.Existosa = true;
+                }
+                else
+                {
+                    prmasistente.SegundoApellido = String.IsNullOrEmpty(prmasistente.SegundoApellido) ? String.Empty : prmasistente.SegundoApellido;
+                    prmasistente.SegundoNombre = String.IsNullOrEmpty(prmasistente.SegundoNombre) ? String.Empty : prmasistente.SegundoNombre;
+                    prmasistente.FechaServicio = Convert.ToInt32(prmasistente.IdServicio) == idServicioJueves ? ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Thursday) : ControlCovid.Models.BLL.ValidacionesBLL.ProximoServicio(DateTime.Now, DayOfWeek.Sunday);
+                    data.Mensaje = dataAccessLayer.AlmacenarAsistente(prmasistente);
+                    data.Existosa = true;
+                }
+                
+             
             }
             catch (Exception ex)
             {
@@ -50,13 +65,13 @@ namespace ControlCovid.Models.BLL
             return data;
         }
 
-        public List<dynamic> RecuperarListaAsistentes(DateTime prmFecha, string prmStrIdServicio)
+        public List<dynamic> RecuperarListaAsistentes(DateTime prmFecha, string prmStrIdServicio,bool prmSoloPersonasNuevas)
         {
             List<dynamic> lista = new List<dynamic>();
             try
             {
                 ControlCovid.Models.DAL.DataAccessLayer dataAccessLayer = new DAL.DataAccessLayer();
-                SqlDataReader lector = dataAccessLayer.RecuperarListaAsistentes(prmFecha, prmStrIdServicio);
+                SqlDataReader lector = dataAccessLayer.RecuperarListaAsistentes(prmFecha, prmStrIdServicio,prmSoloPersonasNuevas);
                 while (lector.Read())
                 {
                     dynamic datos = new ExpandoObject();
@@ -66,6 +81,7 @@ namespace ControlCovid.Models.BLL
                     datos.Nombre = Convert.ToString(lector["Nombre"]);
                     datos.FechaServicio = Convert.ToString(lector["fecha_servicio"]);                    
                     datos.Temperatura = Convert.ToString(lector["Temperatura"]);
+                    datos.Telefono = Convert.ToString(lector["telefono"]);
                     datos.EsNuevo =  Convert.ToBoolean(lector["primera_asistencia"]) ? "Si":"No";
                     lista.Add(datos);
                 }
